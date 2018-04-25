@@ -17,13 +17,13 @@
     <a-scene >
       <a-assets>
     <!--    This is how you import a model. To use it, just call the id -->
-        <a-asset-item id="narwhal" src="assets/narwhal/scene.gltf"></a-asset-item>
+     <!--    <a-asset-item id="narwhal" src="assets/narwhal/scene.gltf"></a-asset-item> -->
         <a-asset src="">
-
+     <a-asset-item id="narwhal" src="assets/Narwhal_Sketch.obj"></a-asset-item>
       </a-assets>
 
 <!--       How to place an object in the scene-->      
-<!--<a-entity gltf-model="#narwhal"></a-entity>-->
+<a-entity model="#narwhal"></a-entity>
 
       <!-- Just like unity inspector, you can change the scale, rotation, and position of objects -->
       <a-entity modelr id="modely" geometry="primitive:box;"></a-entity>
