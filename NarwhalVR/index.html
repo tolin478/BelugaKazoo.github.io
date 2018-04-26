@@ -14,9 +14,13 @@
       <a-assets>
         <a-asset-item id="narwhal" src="assets/narwhal/scene.gltf"></a-asset-item>
       </a-assets>
-<!--       <a-entity modely gltf-model="#narwhal"></a-entity>-->       
-     <a-entity modely id="modely" geometry="primitive:box;"></a-entity>
-      <a-plane position="0 -4 0" rotation="-90 0 0" width="100" height="100" color="#acba13"></a-plane>
+       <a-entity modely0 id="modely0" gltf-model="#narwhal"></a-entity>       
+       <a-entity modely1 id="modely1" gltf-model="#narwhal"></a-entity>       
+       <a-entity modely2 id="modely2" gltf-model="#narwhal"></a-entity>       
+       <a-entity modely3 id="modely3" gltf-model="#narwhal"></a-entity>       
+
+<!--      <a-entity modely id="modely" geometry="primitive:box;"></a-entity>
+ -->      <a-plane position="0 -4 0" rotation="-90 0 0" width="100" height="100" color="#acba13"></a-plane>
       <a-sky color="#6EBAA7"></a-sky>
       <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"
              event-set__enter="_event: mouseenter; color: #000000"
@@ -31,7 +35,7 @@
         </a-animation>
       </a-entity> -->
       <a-camera>
-        <a-text id="UItext" value="HELLO" position="0 2 -3"></a-text>
+        <a-text id="UItext" value="Narwhal Count: 0" position="0 2 -3"></a-text>
         <a-cursor>
         </a-cursor>
       </a-camera>           

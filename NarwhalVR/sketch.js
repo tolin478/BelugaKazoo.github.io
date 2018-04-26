@@ -19,43 +19,51 @@ var narwhals = 0;
 // 	});
 //   }
 // });
+var f = 0;
+for (var i = 0; i < 4; i++) {
+  AFRAME.registerComponent('modely'+i, {
+        init: function() {
+          console.log(f);
+          var data = this.data;
+          var el = this.el;
+          el.object3D.position.set(-20,10,f*10-20);
+                      f++;
 
-AFRAME.registerComponent('modely', {
-      init: function() {
-        var data = this.data;
-        var el = this.el;
+          var pressTimer = null;
+          var longpress = false;
+          var sceneEl = document.querySelector('a-scene');
+          el.addEventListener('mouseleave', function(e) {
+            if (pressTimer !== null) {
+              clearTimeout(pressTimer);
+              pressTimer = null;
+            }
 
-        var pressTimer = null;
-        var longpress = false;
-        var sceneEl = document.querySelector('a-scene');
-        el.addEventListener('mouseleave', function(e) {
-          if (pressTimer !== null) {
-            clearTimeout(pressTimer);
-            pressTimer = null;
-          }
+            if (longpress) {
+              return false;
+            }
 
-          if (longpress) {
-            return false;
-          }
+            console.log('mouse up');
+          }); 
+          
+            el.addEventListener('mouseenter', function(e) {
+            console.log("mouse down");
+            longpress = false;
+            pressTimer = setTimeout(function(){
+              console.log("long click");
+              narwhals++;
+              console.log(sceneEl.querySelector('#'+el.getAttribute('id')));
 
-          console.log('mouse up');
-        }); 
-        
-          el.addEventListener('mouseenter', function(e) {
-          console.log("mouse down");
-          longpress = false;
-          pressTimer = setTimeout(function(){
-            console.log("long click");
-            narwhals++;
-            var narwhal = sceneEl.querySelector('#modely');
-            narwhal.sceneEl.removeChild(narwhal);
-            sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count:" + narwhals);
-            longpress = true;
-          },2000);
+              var narwhal = sceneEl.querySelector('#'+el.getAttribute('id'));
+              narwhal.sceneEl.removeChild(narwhal);
+              sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count: " + narwhals);
+              longpress = true;
+            },2000);
 
-        });
-    }
-});
+          });
+      }
+  });
+}
+
 
 // var canvas = document.getElementById('mycanvas');
 
