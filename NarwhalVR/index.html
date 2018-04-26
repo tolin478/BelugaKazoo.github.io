@@ -6,7 +6,6 @@
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@4.1.1/dist/aframe-event-set-component.min.js"></script>
-    <script src="sketch.js"></script>
 
   </head>
   <body>
@@ -14,18 +13,20 @@
       <a-assets>
         <a-asset-item id="narwhal" src="assets/narwhal/scene.gltf"></a-asset-item>
       </a-assets>
-       <a-entity modely0 id="modely0" gltf-model="#narwhal"></a-entity>       
-       <a-entity modely1 id="modely1" gltf-model="#narwhal"></a-entity>       
-       <a-entity modely2 id="modely2" gltf-model="#narwhal"></a-entity>       
-       <a-entity modely3 id="modely3" gltf-model="#narwhal"></a-entity>       
+                <script src="sketch.js"></script>
+
+<!--        <a-entity modely0 id="modely0" gltf-model="#narwhal" name="Alfred"></a-entity>       
+       <a-entity modely1 id="modely1" gltf-model="#narwhal" name="Clive"></a-entity>       
+       <a-entity modely2 id="modely2" gltf-model="#narwhal" name="Maxwell"></a-entity>       
+       <a-entity modely3 id="modely3" gltf-model="#narwhal" name="Balthild"></a-entity>        -->
 
 <!--      <a-entity modely id="modely" geometry="primitive:box;"></a-entity>
  -->      <a-plane position="0 -4 0" rotation="-90 0 0" width="100" height="100" color="#acba13"></a-plane>
       <a-sky color="#6EBAA7"></a-sky>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"
+  <!--     <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"
              event-set__enter="_event: mouseenter; color: #000000"
-             event-set__leave="_event: mouseleave; color: #4CC3D9"></a-box>    
-<!--       <a-entity>  
+             event-set__leave="_event: mouseleave; color: #4CC3D9"></a-box>  -->   
+      <a-entity>  
         <a-entity  geometry="primitive:box; width:1; height:1; depth:1;" material="color:red;" position="2 0.5 -3" rotation="0 45 0" event-set__makevisible="_event: mouseenter; visible: true"></a-entity>
         <a-animation attribute="rotation"
           dur="10000"
@@ -33,12 +34,15 @@
           to="0 360 0"
           repeat="indefinite">       
         </a-animation>
-      </a-entity> -->
-      <a-camera>
-        <a-text id="UItext" value="Narwhal Count: 0" position="0 2 -3"></a-text>
-        <a-cursor>
-        </a-cursor>
-      </a-camera>           
+      </a-entity>
+  <!--     <a-sky id="image-360" radius="5" material="side: double; color: #EF2D5E; transparent: true; opacity: 0.5" > -->
+        <a-text id="Narwhalopedia" Narwhalopedia value="Narwhal Names: " position="0 2 -6" ></a-text>
+        <a-camera position="0,2,0">
+            <a-text id="UItext" value="Narwhal Count: 0" position="0 2 -3"></a-text>
+            <a-cursor>
+            </a-cursor>
+          </a-camera>  
+   <!--  </a-sky>  -->        
     </a-scene>
   </body> 
 </html>
