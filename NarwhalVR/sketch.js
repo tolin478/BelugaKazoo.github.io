@@ -23,18 +23,20 @@ var f = 0;
 for (var i = 0; i < 4; i++) {
   AFRAME.registerComponent('modely'+i, {
         init: function() {
-          console.log(f);
           var data = this.data;
           var el = this.el;
           el.object3D.position.set(-20,10,f*10-20);
-                      f++;
+                        el.object3D.rotation.set(,0,180);
 
+          f++;
           var pressTimer = null;
+          var sizeTimer = null;
           var longpress = false;
           var sceneEl = document.querySelector('a-scene');
           el.addEventListener('mouseleave', function(e) {
             if (pressTimer !== null) {
               clearTimeout(pressTimer);
+              clearInterval(sizeTimer);
               pressTimer = null;
             }
 
@@ -48,11 +50,14 @@ for (var i = 0; i < 4; i++) {
             el.addEventListener('mouseenter', function(e) {
             console.log("mouse down");
             longpress = false;
+            sizeTimer = setInterval(function(){   
+
+              el.object3D.scale.set(el.object3D.scale.x/1.1,el.object3D.scale.y/1.1,el.object3D.scale.z/1.1);
+            }, 100);
+
             pressTimer = setTimeout(function(){
               console.log("long click");
               narwhals++;
-              console.log(sceneEl.querySelector('#'+el.getAttribute('id')));
-
               var narwhal = sceneEl.querySelector('#'+el.getAttribute('id'));
               narwhal.sceneEl.removeChild(narwhal);
               sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count: " + narwhals);
