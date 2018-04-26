@@ -26,7 +26,7 @@ for (var i = 0; i < 4; i++) {
           var data = this.data;
           var el = this.el;
           el.object3D.position.set(-20,10,f*10-20);
-                        el.object3D.rotation.set(,0,180);
+                        el.object3D.rotation.set(0,0,180);
 
           f++;
           var pressTimer = null;
