@@ -1,20 +1,11 @@
 var narwhals = 0;
 
-AFRAME.registerComponent('reg', {
-  init: function () {
-    var targetEl = this.el;  
-    targetEl.setAttribute('scale','1.5f 1.5f 1.5f')
-    console.log(targetEl);
+// function loop() {
+// 	var sceneEl = document.querySelector('a-scene');
 
-
-  }
-});
-function loop() {
-	var sceneEl = document.querySelector('a-scene');
-
-	if ()
-	requestAnimationFrame(loop);
-}
+// 	if ()
+// 	requestAnimationFrame(loop);
+// }
 // AFRAME.registerComponent('modelr', {
 //   init: function () {
 //     var els = this.el;  
@@ -36,8 +27,8 @@ AFRAME.registerComponent('modely', {
 
         var pressTimer = null;
         var longpress = false;
-
-        el.addEventListener('mouseup', function(e) {
+        var sceneEl = document.querySelector('a-scene');
+        el.addEventListener('mouseleave', function(e) {
           if (pressTimer !== null) {
             clearTimeout(pressTimer);
             pressTimer = null;
@@ -50,19 +41,20 @@ AFRAME.registerComponent('modely', {
           console.log('mouse up');
         }); 
         
-          el.addEventListener('mousedown', function(e) {
+          el.addEventListener('mouseenter', function(e) {
           console.log("mouse down");
-
           longpress = false;
-
           pressTimer = setTimeout(function(){
             console.log("long click");
-            AFRAME.utils.entity.setComponentProperty(el, 'material.color', 'red');
-
+            narwhals++;
+            var narwhal = sceneEl.querySelector('#modely');
+            narwhal.sceneEl.removeChild(narwhal);
+            sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count:" + narwhals);
             longpress = true;
           },2000);
 
         });
+    }
 });
 
 // var canvas = document.getElementById('mycanvas');
