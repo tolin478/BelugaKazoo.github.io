@@ -21,34 +21,45 @@ var narwhalNames = ["Clive","Alfred","Maxwell","Ainsley"];
 //   }
 // });
 
+var sizer = 1.01;
+var timer = 16;
 var f = 0;
 for (var i = 0; i < 4; i++) {
 
     var sceneEl = document.querySelector('a-scene');
     var entity = document.createElement('a-entity');
+    var modelEnt = document.createElement('a-entity');
+
     var newEntity = sceneEl.appendChild(entity);
+    var narwhalEnt = entity.appendChild(modelEnt);
     // newEntity.object3D.position.set(-20,10,i*10-20);
     // newEntity.object3D.rotation.set(0,0,180);
-    newEntity.setAttribute("id","modely"+i);
-    newEntity.setAttribute("modely"+i);
-    newEntity.setAttribute("gltf-model","#narwhal");
-    newEntity.setAttribute("name",narwhalNames[i%narwhalNames.length]);
+    narwhalEnt.setAttribute("id","modely"+i);
+    narwhalEnt.setAttribute("modely"+i);
+    narwhalEnt.setAttribute("gltf-model","#narwhal");
+    narwhalEnt.setAttribute("name",narwhalNames[i%narwhalNames.length]);
     var animation = document.createElement('a-animation');
     animation.setAttribute("attribute","rotation");
+    animation.setAttribute("dur", "10000");
+    // animation.setAttribute("fill","forwards");
+    animation.setAttribute("easing", "linear");
     animation.setAttribute("to","0 360 0");
     animation.setAttribute("repeat","indefinite");
-    animation.setAttribute("fill","forwards");
-        animation.setAttribute("duration", "1000");
-
     newEntity.appendChild(animation);
 
-        console.log(animation);
+    var facingAnimation = document.createElement('a-animation');
+    facingAnimation.setAttribute("attribute","rotation");
+    facingAnimation.setAttribute("dur", "100000");
+    facingAnimation.setAttribute("easing", "linear");
+    facingAnimation.setAttribute("to","0 360 0");
+    facingAnimation.setAttribute("repeat","indefinite");
+    narwhalEnt.appendChild(facingAnimation);
 
     AFRAME.registerComponent('modely'+i, {
         init: function() {
           var data = this.data;
           var el = this.el;
-         el.object3D.position.set(-20,4,f*10-20);
+         el.object3D.position.set(-20,f*4+4,f*10-20);
          // el.object3D.rotation.set(0,0,180);
          f++;
           var pressTimer = null;
@@ -56,25 +67,33 @@ for (var i = 0; i < 4; i++) {
           var longpress = false;
           var sceneEl = document.querySelector('a-scene');
           el.addEventListener('mouseleave', function(e) {
-            if (pressTimer !== null) {
-              clearTimeout(pressTimer);
+            // if (pressTimer !== null) {
+            //   clearTimeout(pressTimer);
               clearInterval(sizeTimer);
-              pressTimer = null;
-            }
-            if (longpress) {
-              return false;
-            }
+            //   pressTimer = null;
+            // }
+            // if (longpress) {
+            //   return false;
+            // }
+            sizeTimer = setInterval(function(){   
+              if (el.object3D.scale.x > 1) {
+              clearInterval(sizeTimer);
+              }
+              el.object3D.scale.set(el.object3D.scale.x*sizer,el.object3D.scale.y*sizer,el.object3D.scale.z*sizer);
+            }, timer);
             console.log('mouse up');
           }); 
           
           el.addEventListener('mouseenter', function(e) {
             console.log("mouse down");
             longpress = false;
-            sizeTimer = setInterval(function(){   
-              //el.object3D.scale.set(el.object3D.scale.x/1.1,el.object3D.scale.y/1.1,el.object3D.scale.z/1.1);
-            }, 100);
+              clearInterval(sizeTimer);
 
-            pressTimer = setTimeout(function(){
+            sizeTimer = setInterval(function(){   
+              console.log(sizer);
+              el.object3D.scale.set(el.object3D.scale.x/sizer,el.object3D.scale.y/sizer,el.object3D.scale.z/sizer);
+            }, timer);
+            if (el.object3D.scale.x < .25) {
               console.log("long click");
               narwhals++;
               //narwhalNames.push(el.getAttribute('name'));
@@ -82,10 +101,11 @@ for (var i = 0; i < 4; i++) {
               //console.log(opedia);
               opedia.setAttribute('value',opedia.getAttribute('value') + el.getAttribute('name') + ", ");
               var narwhal = sceneEl.querySelector('#'+el.getAttribute('id'));
-              narwhal.sceneEl.removeChild(narwhal);
+              narwhal.sceneEl.removeChild(narwhal.parentElement);
               sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count: " + narwhals);
               longpress = true;
-            },2000);
+            }
+           // pressTimer = setTimeout(function(){
           });
       }
   });
