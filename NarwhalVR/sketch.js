@@ -22,6 +22,7 @@ var narwhalNames = ["Clive","Alfred","Maxwell","Ainsley"];
 // });
 
 var sizer = 1.01;
+var revSizer = 1.005;
 var timer = 16;
 var f = 0;
 for (var i = 0; i < 4; i++) {
@@ -79,7 +80,7 @@ for (var i = 0; i < 4; i++) {
               if (el.object3D.scale.x > 1) {
               clearInterval(sizeTimer);
               }
-              el.object3D.scale.set(el.object3D.scale.x*sizer,el.object3D.scale.y*sizer,el.object3D.scale.z*sizer);
+              el.object3D.scale.set(el.object3D.scale.x*revSizer,el.object3D.scale.y*revSizer,el.object3D.scale.z*revSizer);
             }, timer);
             console.log('mouse up');
           }); 
@@ -93,13 +94,13 @@ for (var i = 0; i < 4; i++) {
               console.log(sizer);
               el.object3D.scale.set(el.object3D.scale.x/sizer,el.object3D.scale.y/sizer,el.object3D.scale.z/sizer);
             }, timer);
-            if (el.object3D.scale.x < .25) {
+            if (el.object3D.scale.x < .3) {
               console.log("long click");
               narwhals++;
               //narwhalNames.push(el.getAttribute('name'));
               var opedia = sceneEl.querySelector('#Narwhalopedia');
               //console.log(opedia);
-              opedia.setAttribute('value',opedia.getAttribute('value') + el.getAttribute('name') + ", ");
+              opedia.setAttribute('value',opedia.getAttribute('value') + el.getAttribute('name') + "\n");
               var narwhal = sceneEl.querySelector('#'+el.getAttribute('id'));
               narwhal.sceneEl.removeChild(narwhal.parentElement);
               sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count: " + narwhals);
