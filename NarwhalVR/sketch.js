@@ -1,63 +1,45 @@
-var narwhals = 0;
-var narwhalNames = ["Clive","Alfred","Maxwell","Ainsley"];
+var sizer = 1.01;
+var revSizer = 1.005;
+var timer = 16;
+var f = 0;
 
+var narwhalCount = 0;
+var narwhalEntries = [];
+var narwhalNames = ["Clive","Alfred","Maxwell","Ainsley"];
 
 var xmlhttp = new XMLHttpRequest();
 var url = "entries.json";
+
 xmlhttp.onreadystatechange = function() {
  if (this.readyState == 4 && this.status == 200) {
-          var myArr = JSON.parse(this.responseText);
-             //   console.log(myArr);
-          getNames(myArr);
-         // myFunction(myArr);
-//     // myFunction(myArr);
-    }
+    var myArr = JSON.parse(this.responseText);
+    getNames(myArr);
+  }
 };
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
 function getNames (data) {
-    var names = data.Charcthers[0].name;
-    console.log( names);
+    narwhalEntries = data.Charcthers;
+    console.log(narwhalEntries);
+    createNarwhals();
 }
-// function loop() {
-// 	var sceneEl = document.querySelector('a-scene');
-
-// 	if ()
-// 	requestAnimationFrame(loop);
-// }
-// AFRAME.registerComponent('modelr', {
-//   init: function () {
-//     var els = this.el;  
-//     var sceneEl = document.querySelector('a-scene');
-// 	els.addEventListener('mouseenter', function () {
-// 		narwhals++;
-// 		var narwhal = sceneEl.querySelector('#modely');
-// 		narwhal.sceneEl.removeChild(narwhal);
-// 		sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count:" + narwhals);
-// 		// console.log(narwhals);
-// 	});
-//   }
-// });
-
-var sizer = 1.01;
-var revSizer = 1.005;
-var timer = 16;
-var f = 0;
+function createNarwhals () {
 for (var i = 0; i < 4; i++) {
-
+   // console.log(narwhalEntries[2]);
     var sceneEl = document.querySelector('a-scene');
     var entity = document.createElement('a-entity');
     var modelEnt = document.createElement('a-entity');
 
     var newEntity = sceneEl.appendChild(entity);
     var narwhalEnt = entity.appendChild(modelEnt);
-    // newEntity.object3D.position.set(-20,10,i*10-20);
-    // newEntity.object3D.rotation.set(0,0,180);
     narwhalEnt.setAttribute("id","modely"+i);
     narwhalEnt.setAttribute("modely"+i);
     narwhalEnt.setAttribute("gltf-model","#narwhal");
-    narwhalEnt.setAttribute("name",narwhalNames[i%narwhalNames.length]);
+    //console.log(narwhalEntries);
+    narwhalEnt.setAttribute("name",narwhalEntries[i%narwhalEntries.length].name);
+
+   // narwhalEnt.setAttribute("name",narwhalNames[i%narwhalNames.length]); narwhalEntries[i%narwhalEntries.length].name
     var animation = document.createElement('a-animation');
     animation.setAttribute("attribute","rotation");
     animation.setAttribute("dur", "10000");
@@ -79,12 +61,13 @@ for (var i = 0; i < 4; i++) {
         init: function() {
           var data = this.data;
           var el = this.el;
-         el.object3D.position.set(-20,f*4+4,f*10-20);
-         // el.object3D.rotation.set(0,0,180);
-         f++;
+          el.object3D.position.set(-20,f*4+4,f*10-20);
+          // el.object3D.rotation.set(0,0,180);
+          f++;
           var pressTimer = null;
           var sizeTimer = null;
           var longpress = false;
+          var gracePeriod = 0;
           var sceneEl = document.querySelector('a-scene');
           el.addEventListener('mouseleave', function(e) {
             // if (pressTimer !== null) {
@@ -99,13 +82,19 @@ for (var i = 0; i < 4; i++) {
               if (el.object3D.scale.x > 1) {
               clearInterval(sizeTimer);
               }
-              el.object3D.scale.set(el.object3D.scale.x*revSizer,el.object3D.scale.y*revSizer,el.object3D.scale.z*revSizer);
+              if (gracePeriod > 100) {
+                  el.object3D.scale.set(el.object3D.scale.x*revSizer,el.object3D.scale.y*revSizer,el.object3D.scale.z*revSizer);
+              }
+              else {
+                  gracePeriod++;
+              }
             }, timer);
             console.log('mouse up');
           }); 
           
           el.addEventListener('mouseenter', function(e) {
             console.log("mouse down");
+            gracePeriod = 0;
             longpress = false;
               clearInterval(sizeTimer);
 
@@ -115,14 +104,14 @@ for (var i = 0; i < 4; i++) {
             }, timer);
             if (el.object3D.scale.x < .3) {
               console.log("long click");
-              narwhals++;
+              narwhalCount++;
               //narwhalNames.push(el.getAttribute('name'));
               var opedia = sceneEl.querySelector('#Narwhalopedia');
               //console.log(opedia);
               opedia.setAttribute('value',opedia.getAttribute('value') + el.getAttribute('name') + "\n");
               var narwhal = sceneEl.querySelector('#'+el.getAttribute('id'));
               narwhal.sceneEl.removeChild(narwhal.parentElement);
-              sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count: " + narwhals);
+              sceneEl.querySelector('#UItext').setAttribute('value',"Narwhal Count: " + narwhalCount);
               longpress = true;
             }
            // pressTimer = setTimeout(function(){
@@ -130,6 +119,8 @@ for (var i = 0; i < 4; i++) {
       }
   });
 }
+}
+
 
 
 // var canvas = document.getElementById('mycanvas');

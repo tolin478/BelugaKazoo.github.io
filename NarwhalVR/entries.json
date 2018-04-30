@@ -6,15 +6,15 @@
 		"favoritePasta":"Macaroni"
 		},
 		{"name":"Alfred",
-		"color":0,
+		"color":7,
 		"speed":100,
 		"favoritePasta":"Spaghetti"},	
 		{"name":"Maxwell",
-		"color":0,
+		"color":3,
 		"speed":90,
 		"favoritePasta":"Lasagna"},		
 		{"name":"Ainsly",
-		"color":0,
+		"color":2,
 		"speed":110,
 		"favoritePasta":"Ravioli"}				
 	]
