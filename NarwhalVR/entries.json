@@ -1,0 +1,22 @@
+{
+	"Charcthers": [
+		{"name":"Clive",
+		"color":0,
+		"speed":3,
+		"favoritePasta":"Macaroni"
+		},
+		{"name":"Alfred",
+		"color":0,
+		"speed":100,
+		"favoritePasta":"Spaghetti"},	
+		{"name":"Maxwell",
+		"color":0,
+		"speed":90,
+		"favoritePasta":"Lasagna"},		
+		{"name":"Ainsly",
+		"color":0,
+		"speed":110,
+		"favoritePasta":"Ravioli"}				
+	]
+}
+

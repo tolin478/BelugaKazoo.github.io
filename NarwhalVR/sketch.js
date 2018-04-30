@@ -1,6 +1,25 @@
 var narwhals = 0;
 var narwhalNames = ["Clive","Alfred","Maxwell","Ainsley"];
 
+
+var xmlhttp = new XMLHttpRequest();
+var url = "entries.json";
+xmlhttp.onreadystatechange = function() {
+ if (this.readyState == 4 && this.status == 200) {
+          var myArr = JSON.parse(this.responseText);
+             //   console.log(myArr);
+          getNames(myArr);
+         // myFunction(myArr);
+//     // myFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function getNames (data) {
+    var names = data.Charcthers[0].name;
+    console.log( names);
+}
 // function loop() {
 // 	var sceneEl = document.querySelector('a-scene');
 
