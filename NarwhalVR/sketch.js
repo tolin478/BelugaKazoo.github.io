@@ -52,7 +52,7 @@ for (var i = 0; i < 4; i++) {
     facingAnimation.setAttribute("attribute","rotation");
     facingAnimation.setAttribute("dur", "100000");
     facingAnimation.setAttribute("easing", "linear");
-    facingAnimation.setAttribute("to","0 360 0");
+    facingAnimation.setAttribute("to","0 -360 0");
     facingAnimation.setAttribute("repeat","indefinite");
     narwhalEnt.appendChild(facingAnimation);
 
